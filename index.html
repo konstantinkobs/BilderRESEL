@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BilderRESEL</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Add to Homescreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon stuff -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f6e39e">
+    <meta name="msapplication-TileColor" content="#f6e39e">
+    <meta name="theme-color" content="#f6e39e">
+</head>
+<body>
+    <div id="app">
+        <img class="background" v-bind:src="imageSrc">
+
+        <div class="container">
+            <div class="header">
+                <img class="icon" src="android-chrome-384x384.png">
+                <h1 class="title">BilderRESEL</h1>
+            </div>
+    
+            <div v-if="!hasWon" class="puzzle">
+                <div class="slide" v-for="slide in slides" v-bind:style="{
+                    width: 100/size + '%',
+                    height: 100/size + '%',
+                    top: slide.x*100/size + '%',
+                    left: slide.y*100/size + '%',
+                }" @click="swap(slide)">
+                    <img class="image" v-bind:style="{
+                        width: size * 100 + '%',
+                        top: '-' + slide.patchX*100 + '%',
+                        left: '-' + slide.patchY*100 + '%'
+                    }" v-bind:src="imageSrc">
+                    <div v-if="showHelp" class="help">{{slide.patchX * size + slide.patchY + 1}}</div>
+                </div>
+            </div>
+            <img v-if="hasWon" style="width: 100%" v-bind:src="imageSrc">
+    
+            <div class="footer">
+                <div v-if="hasWon" class="congratulations">
+                    <p class="message">
+                        Herzlichen Glückwunsch, du hast gewonnen! Du hast {{numMoves}} Züge gebraucht.
+                    </p>
+                    <span class="button" @click="initGame()">Neues Spiel</span>
+                </div>
+                
+                <div v-if="!hasWon" class="settings">
+                    <h2>Einstellungen</h2>
+                    <p>
+                        Hilfszahlen anzeigen?
+                        <span @click="showHelp=true" class="option" v-bind:class="{selected: showHelp}">Ja</span> /
+                        <span @click="showHelp=false" class="option" v-bind:class="{selected: !showHelp}">Nein</span>
+                    </p>
+            
+                    <p>
+                        Anzahl der Quadrate:
+                        <span @click="size=3" class="option" v-bind:class="{selected: size==3}">9</span> /
+                        <span @click="size=4" class="option" v-bind:class="{selected: size==4}">16</span> /
+                        <span @click="size=5" class="option" v-bind:class="{selected: size==5}">25</span>
+                    </p>
+
+                    <p>
+                        <span @click="initGame()" style="cursor: pointer; font-weight: bold;">Neues Spiel 🔄</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script> -->
+    <script src="js/vue.js"></script>
+    <script src="js/crypto-js.min.js"></script>
+    <script src="js/confetti.js"></script>
+    <script src="enc/numimages.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+<!--
+    TODO: Icon/Logo oben
+    TODO: Auf dem Homescreen platzierbar machen
+    TODO: Mehr Fotos
+    TODO: Kleine Anleitung
+    TODO: High-Score
+-->

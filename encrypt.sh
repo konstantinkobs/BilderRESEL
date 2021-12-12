@@ -1,0 +1,1 @@
+openssl enc -aes-256-cbc -base64 -A < image.jpeg > image.enc
