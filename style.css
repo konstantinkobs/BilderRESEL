@@ -40,12 +40,13 @@ html, body {
 }
 
 .icon {
-    width: 150px;
+    width: 130px;
 }
 
 .title {
     font-size: 150%;
     text-align: center;
+    padding: 0 10px;
 }
 
 .slide {
@@ -110,6 +111,10 @@ html, body {
 }
 
 .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     padding: 20px;
     text-align: center;
 
