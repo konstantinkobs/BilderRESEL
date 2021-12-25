@@ -11,6 +11,7 @@ const app = new Vue({
 		showHelp: true,
         numMoves: 0,
         hasWon: false,
+		isLoading: true,
 	},
 	methods: {
 		swap: function (slide, checkWin = true) {
@@ -84,6 +85,8 @@ const app = new Vue({
 			// generate random image ID
             const randomID = Math.floor(Math.random() * numImages);
 
+			this.isLoading = true;
+
 			// load and decrypt image
 			fetch("./enc/" + randomID + ".jpg")
 				.then((response) => response.text())
@@ -93,8 +96,9 @@ const app = new Vue({
 					this.imageSrc = 'data:image/jpg;base64,' + base64;
 				})
 				.catch((e) => {
-					this.imageSrc =
-						'https://source.unsplash.com/random/600x600?nature';
+					this.imageSrc = 'https://source.unsplash.com/random/600x600?nature';
+				}).finally(() => {
+					this.isLoading = false;
 				});
 
 			this.createSlides();

@@ -9,6 +9,7 @@
 
     <!-- Add to Homescreen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
 
     <!-- Fonts -->
@@ -57,7 +58,9 @@
                     <p class="message">
                         Herzlichen Glückwunsch, du hast gewonnen! Du hast {{numMoves}} Züge gebraucht.
                     </p>
-                    <span class="button" @click="initGame()">Neues Spiel</span>
+                    <p style="text-align: center;">
+                        <span @click="initGame()" style="cursor: pointer; font-weight: bold;">Neues Spiel 🔄</span>
+                    </p>
                 </div>
                 
                 <div v-if="!hasWon" class="settings">
@@ -80,6 +83,10 @@
                     </p>
                 </div>
             </div>
+
+            <div class="loader" v-if="isLoading">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+            </div>
         </div>
     </div>
 
@@ -92,11 +99,3 @@
     <script src="js/script.js"></script>
 </body>
 </html>
-
-<!--
-    TODO: Icon/Logo oben
-    TODO: Auf dem Homescreen platzierbar machen
-    TODO: Mehr Fotos
-    TODO: Kleine Anleitung
-    TODO: High-Score
--->
