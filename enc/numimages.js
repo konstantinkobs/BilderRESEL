@@ -1,1 +1,1 @@
-const numImages = 157;
+const numImages = 97;
